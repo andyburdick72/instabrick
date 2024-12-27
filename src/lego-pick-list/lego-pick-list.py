@@ -6,7 +6,7 @@ import sys
 # File paths for color mapping and user's inventory
 
 color_mapping_file = '../../data/instabrick_colors.xlsx'
-inventory_file = '../../data/user_data/instabrick_inventory.xml'
+inventory_file = '../../data/user_data/inventory.xml'
 
 # Function to read the color mapping
 
@@ -42,8 +42,8 @@ def parse_inventory():
         quantity = int(item.find('QTY').text)
         location = item.find('REMARKS').text
 
-        # Ignore certain remarks
-        if any(ignore in location for ignore in ['(Built)', '(Building)', '(In Box)']):
+        # Ignore certain drawers
+        if any(ignore in location for ignore in ['(Built)', '(In Box)', '(Teardown)', '(Work in Progress)']):
             continue
 
         # Clean up the location

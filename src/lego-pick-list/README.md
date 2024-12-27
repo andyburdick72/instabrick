@@ -15,7 +15,7 @@ The LEGO Pick List Generator is a Python script designed to help LEGO enthusiast
 To get started with the LEGO Pick List Generator, follow these steps:
 
 - From the Inventory page of the Instabrick website (https://app.instabrick.org/inventory), click Export XML to download your inventory file
-- Save the file as instabrick_inventory.xml, and place it in the instabrick/data/user_data/ folder
+- Accept the default file name of inventory.xml, and place it in the instabrick/data/user_data/ folder
 
 ## Usage
 
