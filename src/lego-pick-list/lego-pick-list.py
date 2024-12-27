@@ -3,10 +3,10 @@ import pandas as pd
 import xml.etree.ElementTree as ET
 import sys
 
-# Hard-coded file paths for color mapping and inventory
+# File paths for color mapping and user's inventory
 
-color_mapping_file = '/Users/andy.burdick/Code/GitHub/instabrick/lego-pick-list/instabrick_colors.xlsx'
-inventory_file = '/Users/andy.burdick/Code/GitHub/instabrick/my-instabrick-data/instabrick_inventory.xml'
+color_mapping_file = '../../data/instabrick_colors.xlsx'
+inventory_file = '../../data/user_data/instabrick_inventory.xml'
 
 # Function to read the color mapping
 
@@ -115,7 +115,7 @@ def main(set_number):
 
     # Define part list and output paths based on the set number
 
-    subdirectory = '/Users/andy.burdick/Code/GitHub/instabrick/my-instabrick-data/{set_number}'
+    subdirectory = f'data/{set_number}'
     part_list_file = os.path.join(subdirectory, f'{set_number}_part_list.xlsx')
     output_file = os.path.join(subdirectory, f'{set_number}_pick_list.xlsx')
 
@@ -132,12 +132,6 @@ def main(set_number):
     print(f"Pick list saved to {output_file}")
 
 # Entry point
-#
-# This script assumes:
-#
-#  1. Inventory file exists: /Users/andy.burdick/Code/GitHub/instabrick/my-instabrick-data/instabrick_inventory.xml
-#  2. Color mapping file exists: /Users/andy.burdick/Code/GitHub/instabrick/lego-pick-list/instabrick_colors.xlsx
-#  3. Part list for set exists (in subdirectory): /Users/andy.burdick/Code/GitHub/instabrick/my-instabrick-data/[set_number]/[set_number]_part_list.xlsx
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

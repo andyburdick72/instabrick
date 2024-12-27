@@ -21,13 +21,17 @@ To get started with the LEGO Pick List Generator, follow these steps:
 
 For each set that you want a pick list generated for:
 
-- Create a subdirectory under the instabrick/src/lego-pick-list/data/ directory, named with the set number (e.g. 10783)
+- Create a subdirectory under the instabrick/src/lego-pick-list/data/ directory, using the set number as the name (e.g. 10783)
 - Grab the set of parts for the set from the Sets page of the Instabrick website (https://app.instabrick.org/sets > Set Info)
 - Save it as an Excel spreadsheet, naming it set_number_part_list.xlsx (e.g. 10783_part_list.xlsx), and placing it in the instabrick/src/lego-pick-list/data/<set_number> subdirectory you created for the set
 
-Then, to generate the pick list, run the script with the desired LEGO set ID from your command line (e.g. Terminal for macOS):
+Open a terminal window, and navigate to the instabrick/src/lego-pick-list directory:
 
-  python lego-pick-list.py <set_number>
+  cd instabrick/src/lego-pick-list
+
+Run the script with the desired LEGO set ID from your command line:
+
+  python3 lego-pick-list.py <set_number>
 
 Replace <set_number> with the set number of the LEGO set you want to generate a pick list for, and press enter.
 
