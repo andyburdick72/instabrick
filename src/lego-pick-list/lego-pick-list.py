@@ -1,7 +1,8 @@
+import json
 import os
 import pandas as pd
-import xml.etree.ElementTree as ET
 import sys
+import xml.etree.ElementTree as ET
 
 # File paths for color mapping and user's inventory
 
@@ -31,10 +32,17 @@ def read_required_parts(part_list_file):
 # Function to parse the inventory XML
 
 def parse_inventory():
+
     tree = ET.parse(inventory_file)
     root = tree.getroot()
 
     inventory = []
+
+    # Load configuration
+    with open('config.json', 'r') as config_file:
+    config = json.load(config_file)
+
+    ignore_strings = config.get('ignore_strings', [])
 
     for item in root.findall('ITEM'):
         item_id = item.find('ITEMID').text
@@ -43,10 +51,10 @@ def parse_inventory():
         location = item.find('REMARKS').text
 
         # Ignore certain drawers
-        if any(ignore in location for ignore in ['(Built)', '(In Box)', '(Teardown)', '(Work in Progress)']):
+        if any(ignore in location for ignore in  ignore_strings):
             continue
 
-        # Clean up the location
+        # Remove the [IB] text from the location
         if location.startswith('[IB]') and location.endswith('[IB]'):
             location = location[4:-4].strip()
 
