@@ -40,7 +40,7 @@ def parse_inventory():
 
     # Load configuration
     with open('config.json', 'r') as config_file:
-    config = json.load(config_file)
+        config = json.load(config_file)
 
     ignore_strings = config.get('ignore_strings', [])
 

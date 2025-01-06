@@ -2,18 +2,37 @@
 
 ## Description
 
-Welcome to my Instabrick LEGO project! In this project, I have used Python to automate some features not yet available on the Instabrick website.
+Welcome to my Instabrick LEGO project! In this project, I use Python to automate some features not (yet) available on the Instabrick website.
 
-## Features
+## Scripts
 
-- Generate a pick list for any LEGO set
-- (Future) Tear down built sets into main inventory
+- Generate a pick list for any LEGO set, based on the parts in your Instabrick inventory
+- (Future) Tear down built LEGO sets into your main Instabrick inventory (provided they are stored in a separate drawer / container)
 
 ## Installation
 
 To get started with the Instabrick LEGO project, follow these steps:
 
-- TBD
+   ### Clone the repository:
+
+   - Ensure you have Git or GitHub Desktop installed
+   - Navigate to my Git repository in your web browser: https://github.com/andyburdick72/instabrick
+   - Click the green Code button, and clone the repository
+
+   ### Install Python:
+
+   - Install Python 3 on your desktop (for macOS, I recommend using Homebrew)
+   - Verify the Python installation by running `python3 --version` from a Terminal window
+
+   ### Install dependencies:
+
+   - Navigate to the `/instabrick` folder in a Terminal window
+   - Install dependencies: `pip install -r requirements.txt`
+
+   ### Download Your Instabrick Inventory:
+
+   - From the Inventory page of the Instabrick website (https://app.instabrick.org/inventory), click Export XML to download your inventory file
+   - Accept the default file name of `inventory.xml`, and place it in the `/instabrick/data/user_data/` folder
 
 ## Contributing
 
