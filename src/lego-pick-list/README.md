@@ -14,6 +14,14 @@ The LEGO Pick List Generator is a Python script designed to help LEGO enthusiast
 
 These instructions assume that you have already downloaded your `inventory.xml` file from the Instabrick website; if you have not already done so, see the project's main README.md file for instructions.
 
+## Configuration (optional)
+
+If there are any locations in your Instabrick inventory that you do not want considered for the pick list generator, create a config.json file in the main `/instabrick` directory and populate the variable `ignore_strings` with the list of inventory locations to ignore, e.g.:
+
+{
+    "ignore_strings": ["(Built)", "(In Box)", "(Teardown)"]
+}
+
 ## Usage
 
 For each set that you want a pick list generated for:

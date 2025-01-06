@@ -27,7 +27,7 @@ To get started with the Instabrick LEGO project, follow these steps:
    ### Install dependencies:
 
    - Navigate to the `/instabrick` folder in a Terminal window
-   - Install dependencies: `pip install -r requirements.txt`
+   - Install dependencies: `pip3 install -r requirements.txt`
 
    ### Download Your Instabrick Inventory:
 
