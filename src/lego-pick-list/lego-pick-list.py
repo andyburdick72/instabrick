@@ -6,20 +6,20 @@ import xml.etree.ElementTree as ET
 
 # File paths for color mapping and user's inventory
 
-color_mapping_file = '../../data/instabrick_colors.xlsx'
+color_mapping_file = '../../data/instabrick_colors.csv'
 inventory_file = '../../data/user_data/inventory.xml'
 
 # Function to read the color mapping
 
 def read_color_mapping():
-    df_colors = pd.read_excel(color_mapping_file)
+    df_colors = pd.read_csv(color_mapping_file)
     df_colors['color'] = df_colors['color'].astype(str)
     return df_colors
 
 # Function to read the required parts and map color names
 
 def read_required_parts(part_list_file):
-    df_parts = pd.read_excel(part_list_file)
+    df_parts = pd.read_csv(part_list_file)
     df_colors = read_color_mapping()
 
     # Merge the part list with the color mapping on the 'Color' column
@@ -115,7 +115,7 @@ def create_pick_list(required_parts, inventory):
 
 def save_pick_list(pick_list, output_file):
     df = pd.DataFrame(pick_list)
-    df.to_excel(output_file, index=False)
+    df.to_csv(output_file, index=False)
 
 # Main function
 
@@ -124,8 +124,8 @@ def main(set_number):
     # Define part list and output paths based on the set number
 
     subdirectory = f'data/{set_number}'
-    part_list_file = os.path.join(subdirectory, f'{set_number}_part_list.xlsx')
-    output_file = os.path.join(subdirectory, f'{set_number}_pick_list.xlsx')
+    part_list_file = os.path.join(subdirectory, f'{set_number}_part_list.csv')
+    output_file = os.path.join(subdirectory, f'{set_number}_pick_list.csv')
 
     # Read required parts and parse the inventory
     required_parts = read_required_parts(part_list_file)

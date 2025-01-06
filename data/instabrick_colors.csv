@@ -1,0 +1,72 @@
+﻿color,name
+0,N/A
+1,white
+2,tan
+3,yellow
+4,orange
+5,red
+6,green
+7,blue
+8,brown
+9,light gray
+10,dark gray
+11,black
+12,trans-clear
+13,trans-brown
+14,trans-dark blue
+15,trans-light blue
+16,trans-neon green
+17,trans-red
+19,trans-yellow
+20,trans-green
+21,chrome gold
+22,chrome silver
+28,nougat
+34,lime
+36,bright green
+39,dark turquoise
+42,medium blue
+47,dark pink
+48,sand green
+50,trans-dark pink
+51,trans-purple
+55,sand blue
+59,dark red
+61,pearl light gold
+63,dark blue
+67,metallic silver
+68,dark orange
+69,dark tan
+71,magenta
+77,pearl dark gray
+80,dark green
+85,dark bluish gray
+86,light bluish gray
+88,reddish brown
+89,dark purple
+90,light nougat
+95,flat silver
+98,trans-orange
+103,bright light yellow
+104,bright pink
+105,bright light blue
+108,trans-bright green
+110,bright light orange
+115,pearl gold
+120,dark brown
+150,medium nougat
+152,light aqua
+153,dark azure
+154,lavender
+155,olive green
+156,medium azure
+157,medium lavender
+158,yellowish green
+159,glow in dark white
+220,coral
+221,satin trans-light blue
+224,satin trans-dark pink
+228,satin white
+229,satin trans-black
+232,satin trans-dark blue
+236,neon yellow
