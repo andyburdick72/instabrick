@@ -27,7 +27,8 @@ To get started with the Instabrick LEGO project, follow these steps:
    ### Install dependencies:
 
    - Navigate to the `/instabrick` folder in a Terminal window
-   - Install dependencies: `pip3 install -r requirements.txt`
+   - Install dependencies: `python3 -m pip install -r requirements.txt`
+   - (If you receive an "externally managed environment" error, add the flag `--break-system-packages` to the above command)
 
    ### Download Your Instabrick Inventory:
 
