@@ -19,7 +19,12 @@ def read_color_mapping():
 # Function to read the required parts and map color names
 
 def read_required_parts(part_list_file):
-    df_parts = pd.read_csv(part_list_file)
+    try:
+        df_parts = pd.read_csv(part_list_file)
+    except FileNotFoundError:
+        print(f"Error: The required file '{part_list_file}' is missing. Please ensure the file exists and try again.")
+        raise  # Re-raise the exception after logging the message to terminate the program
+        
     df_colors = read_color_mapping()
 
     # Merge the part list with the color mapping on the 'Color' column
@@ -38,11 +43,17 @@ def parse_inventory():
 
     inventory = []
 
-    # Load configuration
-    with open('config.json', 'r') as config_file:
-        config = json.load(config_file)
+    # Load strings to ignore from (optional) configuration file
+
+    try:
+        with open('config.json', 'r') as config_file:
+            config = json.load(config_file)
+    except FileNotFoundError:
+        config = {}
 
     ignore_strings = config.get('ignore_strings', [])
+
+    # Build the inventory data structure
 
     for item in root.findall('ITEM'):
         item_id = item.find('ITEMID').text
@@ -50,11 +61,11 @@ def parse_inventory():
         quantity = int(item.find('QTY').text)
         location = item.find('REMARKS').text
 
-        # Ignore certain drawers
-        if any(ignore in location for ignore in  ignore_strings):
+        # Ignore locations matching the strings to ignore
+        if any(ignore in location for ignore in ignore_strings):
             continue
 
-        # Remove the [IB] text from the location
+        # Remove the [IB] text from the location for readability
         if location.startswith('[IB]') and location.endswith('[IB]'):
             location = location[4:-4].strip()
 
