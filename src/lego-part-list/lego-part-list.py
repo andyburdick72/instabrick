@@ -91,11 +91,11 @@ def login_instabrick(driver, USERNAME, PASSWORD):
 
 def normalize_set_number(set_number):
     if '-' in set_number:
-        print(f"Processing set number '{set_number}'.")
+        print(f"Extracting part list for set number '{set_number}'.")
         return set_number
     else:
         normalized_set_number = f"{set_number}-1"
-        print(f"Processing set number '{normalized_set_number}'.")
+        print(f"Extracting part list for set number '{normalized_set_number}'.")
         return normalized_set_number
     
 # Function to get the page source for the part list
@@ -231,12 +231,13 @@ def scrape_part_list(page_source):
         cells = row.find_all("td")
         if len(cells) < 5:  # Skip invalid rows
             continue
+        part_id = cells[0].text.strip()
         part_name = cells[1].text.strip()
         design_id = cells[2].text.strip()
         color = cells[3].text.strip()
         type = cells[4].text.strip()
         quantity = cells[6].text.strip()
-        parts.append({"Part Name": part_name, "Design ID": design_id, "Color": color, "Type": type, "Quantity": quantity})
+        parts.append({"Part ID": part_id, "Part Name": part_name, "Design ID": design_id, "Color": color, "Type": type, "Qty": quantity})
 
     return parts
 
@@ -253,7 +254,7 @@ def write_part_list_to_csv(part_list, set_number):
     csv_file_path = os.path.join(output_dir, csv_file_name)
 
     # CSV headers
-    headers = ["Part ID", "Part Name", "Color", "Type", "Quantity"]
+    headers = ["Part ID", "Part Name", "Design ID", "Color", "Type", "Quantity"]
 
     # Writing to CSV
     with open(csv_file_path, mode="w", newline="", encoding="utf-8") as csv_file:
@@ -265,11 +266,12 @@ def write_part_list_to_csv(part_list, set_number):
         # Write data
         for part in part_list:
             writer.writerow([
-                part["Design ID"], # Part ID
+                part["Part ID"],   # Part ID
                 part["Part Name"], # Part Name
+                part["Design ID"], # Design ID
                 part["Color"],     # Color
                 part["Type"],      # Type
-                part["Quantity"]   # Quantity
+                part["Qty"]        # Quantity
             ]
         )
 
@@ -279,7 +281,7 @@ def write_part_list_to_csv(part_list, set_number):
 
 def main(set_number):
 
-    # Normalize the set number and get the part list for the set
+    # Normalize the set number
     normalized_set_number = normalize_set_number(set_number)
         
     # Get Instabrick credentials and initialize the WebDriver

@@ -9,6 +9,17 @@ import xml.etree.ElementTree as ET
 color_mapping_file = '../../data/instabrick_colors.csv'
 inventory_file = '../../data/user_data/inventory.xml'
 
+# Function to normalize the set number
+
+def normalize_set_number(set_number):
+    if '-' in set_number:
+        print(f"Generating pick list for set number '{set_number}'.")
+        return set_number
+    else:
+        normalized_set_number = f"{set_number}-1"
+        print(f"Generating pick list for set number '{normalized_set_number}'.")
+        return normalized_set_number
+    
 # Function to read the color mapping
 
 def read_color_mapping():
@@ -29,9 +40,8 @@ def read_required_parts(part_list_file):
 
     # Merge the part list with the color mapping on the 'Color' column
     required_parts = pd.merge(df_parts, df_colors, left_on='Color', right_on='name', how='left')
-    required_parts = required_parts[['Design ID', 'color', 'name', 'Quantity', 'Part Name']].rename(columns={'name': 'Color Name'})
+    required_parts = required_parts[['Design ID', 'Part ID', 'Color', 'name', 'Quantity', 'Part Name']].rename(columns={'name': 'Color Name'})
 
-    print(required_parts)
     return required_parts
 
 # Function to parse the inventory XML
@@ -44,7 +54,6 @@ def parse_inventory():
     inventory = []
 
     # Load strings to ignore from (optional) configuration file
-
     try:
         with open('config.json', 'r') as config_file:
             config = json.load(config_file)
@@ -54,9 +63,8 @@ def parse_inventory():
     ignore_strings = config.get('ignore_strings', [])
 
     # Build the inventory data structure
-
     for item in root.findall('ITEM'):
-        item_id = item.find('ITEMID').text
+        design_id = item.find('ITEMID').text
         color = item.find('COLOR').text
         quantity = int(item.find('QTY').text)
         location = item.find('REMARKS').text
@@ -70,7 +78,7 @@ def parse_inventory():
             location = location[4:-4].strip()
 
         inventory.append({
-            'item_id': item_id,
+            'design_id': design_id,
             'color': color,
             'quantity': quantity,
             'location': location
@@ -87,13 +95,14 @@ def create_pick_list(required_parts, inventory):
         part_found = False
 
         design_id = str(part['Design ID'])
-        color = str(part['color'])
+        part_id = str(part['Part ID'])
+        color = str(part['Color'])
         color_name = part['Color Name'] # Color name for output
         quantity_needed = part['Quantity']
         description = part['Part Name']
 
         for item in inventory:
-            if item['item_id'] == design_id and item['color'] == color:
+            if item['design_id'] == design_id:
                 pick_list.append({
                     'Location': item['location'],
                     'Design ID': design_id,
@@ -132,11 +141,13 @@ def save_pick_list(pick_list, output_file):
 
 def main(set_number):
 
+    # Normalize the set number
+    normalized_set_number = normalize_set_number(set_number)
+        
     # Define part list and output paths based on the set number
-
-    subdirectory = f'data/{set_number}'
-    part_list_file = os.path.join(subdirectory, f'{set_number}_part_list.csv')
-    output_file = os.path.join(subdirectory, f'{set_number}_pick_list.csv')
+    subdirectory = f'../../data/user_data/{normalized_set_number}'
+    part_list_file = os.path.join(subdirectory, f'{normalized_set_number}_part_list.csv')
+    output_file = os.path.join(subdirectory, f'{normalized_set_number}_pick_list.csv')
 
     # Read required parts and parse the inventory
     required_parts = read_required_parts(part_list_file)
