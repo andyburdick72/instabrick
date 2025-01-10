@@ -6,9 +6,8 @@ The LEGO Pick List Generator is a Python script designed to help LEGO enthusiast
 
 ## Features
 
-- Generate a pick list for any LEGO set.
-- Cross-reference with your Instabrick inventory.
-- Easy to use and customize.
+- Generates a pick list for any LEGO set.
+- Supports ignoring certain inventory locations, based on their name.
 
 ## Prerequisites
 

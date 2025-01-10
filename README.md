@@ -6,8 +6,8 @@ Welcome to my Instabrick LEGO project! In this project, I use Python to automate
 
 ## Scripts
 
+- Download a part list for any LEGO set from the Instabrick website
 - Generate a pick list for any LEGO set, based on the parts in your Instabrick inventory
-- (WIP) Download a part list for any LEGO set from the Instabrick website
 - (Future) Tear down built LEGO sets into your main Instabrick inventory (provided they are stored in a separate drawer / container)
 
 ## Installation
@@ -29,7 +29,7 @@ To get started with the Instabrick LEGO project, follow these steps:
 
    - Navigate to the `/instabrick` folder in a Terminal window
    - Install dependencies: `python3 -m pip install -r requirements.txt`
-   - (If you receive an "externally managed environment" error, add the flag `--break-system-packages` to the above command)
+   - (If you receive an "externally managed environment" error, add the flag `--break-system-packages` to the above command or set up a virtual environment)
 
    ### Download Your Instabrick Inventory:
 
