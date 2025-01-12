@@ -5,6 +5,7 @@ import sys
 import time
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+from pathlib import Path
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
@@ -16,6 +17,11 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
+
+# Add the src directory to the Python path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
+from utils.common_functions import normalize_set_number
 
 # Function to load Instabrick credentials from .env file
 
@@ -86,18 +92,7 @@ def login_instabrick(driver, USERNAME, PASSWORD):
         # If the dashboard doesn't load, assume login failed
         print("Error: Instabrick login failed. Please check your username and password.")
         sys.exit(1)
-
-# Function to normalize the set number
-
-def normalize_set_number(set_number):
-    if '-' in set_number:
-        print(f"Extracting part list for set number '{set_number}'.")
-        return set_number
-    else:
-        normalized_set_number = f"{set_number}-1"
-        print(f"Extracting part list for set number '{normalized_set_number}'.")
-        return normalized_set_number
-    
+  
 # Function to get the page source for the part list
 
 def get_part_list_page(driver, set_number):

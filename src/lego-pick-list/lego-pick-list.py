@@ -3,22 +3,17 @@ import os
 import pandas as pd
 import sys
 import xml.etree.ElementTree as ET
+from pathlib import Path
+
+# Add the src directory to the Python path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
+from utils.common_functions import normalize_set_number
 
 # File paths for color mapping and user's inventory
 
 color_mapping_file = '../../data/instabrick_colors.csv'
 inventory_file = '../../data/user_data/inventory.xml'
-
-# Function to normalize the set number
-
-def normalize_set_number(set_number):
-    if '-' in set_number:
-        print(f"Generating pick list for set number '{set_number}'.")
-        return set_number
-    else:
-        normalized_set_number = f"{set_number}-1"
-        print(f"Generating pick list for set number '{normalized_set_number}'.")
-        return normalized_set_number
     
 # Function to read the color mapping
 
