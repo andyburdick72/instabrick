@@ -157,6 +157,7 @@ def get_part_list_page(driver, set_number):
 
     # Determine the expected number of rows to display (lesser of 100 or total_entries)
     expected_entries = min(100, total_entries)
+    print(f"Total entries: {total_entries}, expected entries: {expected_entries}")
 
     # If rows <= 25, skip dropdown selection and pagination logic
     if total_entries > 25:
@@ -182,6 +183,7 @@ def get_part_list_page(driver, set_number):
         WebDriverWait(driver, 20).until(
             lambda driver: expected_info_text in driver.find_element(By.CSS_SELECTOR, '.dataTables_info').text
         )
+        print(f"Table updated to: {driver.find_element(By.CSS_SELECTOR, '.dataTables_info').text}")
 
     # Pagination handling for the parts list page
     combined_page_source = ""
@@ -196,16 +198,19 @@ def get_part_list_page(driver, set_number):
             if "disabled" in next_button.get_attribute("class"):
                 break  # Exit the loop if the button is disabled
 
-            # Record the current number of rows
-            current_row_count = len(driver.find_elements(By.CSS_SELECTOR, '#set_parts_list tbody tr'))
+            # Get the current range of displayed entries from .dataTables_info
+            current_info_text = driver.find_element(By.CSS_SELECTOR, ".dataTables_info").text
+            print(f"Current page info: {current_info_text}")
 
             # Click the "Next" button
             next_button.click()
 
-            # Wait for the table to update (using .dataTables_info to confirm a change)
+            # Wait for the table to update to the next range of entries
             WebDriverWait(driver, 10).until(
-                lambda d: int(d.find_element(By.CSS_SELECTOR, '.dataTables_info').text.split("to")[1].split("of")[0].strip()) > current_row_count
+                lambda d: d.find_element(By.CSS_SELECTOR, ".dataTables_info").text != current_info_text
             )
+            updated_info_text = driver.find_element(By.CSS_SELECTOR, ".dataTables_info").text
+            print(f"Table updated to: {updated_info_text}")
 
         except NoSuchElementException:
             # Exit the loop if the "Next" button is not found
