@@ -61,7 +61,7 @@ def init_webdriver():
 
     except WebDriverException:
         # If ChromeDriver is not found or fails, install it using webdriver_manager
-        print("ChromeDriver not found. Installing via webdriver_manager...")
+        print("ChromeDriver not found. Installing via webdriver_manager.")
         driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
     return driver
@@ -183,7 +183,6 @@ def get_part_list_page(driver, set_number):
         WebDriverWait(driver, 20).until(
             lambda driver: expected_info_text in driver.find_element(By.CSS_SELECTOR, '.dataTables_info').text
         )
-        print(f"Table updated to: {driver.find_element(By.CSS_SELECTOR, '.dataTables_info').text}")
 
     # Pagination handling for the parts list page
     combined_page_source = ""
@@ -200,7 +199,6 @@ def get_part_list_page(driver, set_number):
 
             # Get the current range of displayed entries from .dataTables_info
             current_info_text = driver.find_element(By.CSS_SELECTOR, ".dataTables_info").text
-            print(f"Current page info: {current_info_text}")
 
             # Click the "Next" button
             next_button.click()
@@ -210,7 +208,6 @@ def get_part_list_page(driver, set_number):
                 lambda d: d.find_element(By.CSS_SELECTOR, ".dataTables_info").text != current_info_text
             )
             updated_info_text = driver.find_element(By.CSS_SELECTOR, ".dataTables_info").text
-            print(f"Table updated to: {updated_info_text}")
 
         except NoSuchElementException:
             # Exit the loop if the "Next" button is not found
