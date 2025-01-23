@@ -6,8 +6,9 @@ Welcome to my Instabrick LEGO project! In this project, I use Python to automate
 
 ## Scripts
 
-- Download a part list for any LEGO set from the Instabrick website
-- Generate a pick list for any LEGO set, based on the parts in your Instabrick inventory
+- add-lego-set: Part out a set to a Drawer and Container in your Instabrick inventory
+- lego-part-list: Download a part list for any LEGO set from the Instabrick website
+- lego-pick-list: Generate a pick list for any LEGO set, based on the parts in your Instabrick inventory
 - (Future) Tear down built LEGO sets into your main Instabrick inventory (provided they are stored in a separate drawer / container)
 
 ## Installation

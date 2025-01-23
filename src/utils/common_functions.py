@@ -15,11 +15,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def normalize_set_number(set_number):
     if '-' in set_number:
-        print(f"Extracting part list for set number '{set_number}'.")
+        print(f"Processing set number '{set_number}'.")
         return set_number
     else:
         normalized_set_number = f"{set_number}-1"
-        print(f"Extracting part list for set number '{normalized_set_number}'.")
+        print(f"Processing set number '{normalized_set_number}'.")
         return normalized_set_number
     
 # Function to load Instabrick credentials from .env file
@@ -105,6 +105,7 @@ def navigate_to_sets_page(driver):
     )
 
 # Function to search for a set on the Sets page and return the first row
+
 def search_for_set(driver, set_number):
 
     # Locate the Search field
@@ -137,3 +138,24 @@ def search_for_set(driver, set_number):
 
     # Return the first row
     return rows[0]
+
+# Function to navigate to the Inventory page
+
+def navigate_to_inventory_page(driver):
+    
+    inventory_url = "https://app.instabrick.org/inventory"
+    driver.get(inventory_url)
+
+    # Wait for the Inventory page to load
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "body.pace-done"))
+    )
+
+# Function to save page source to file (for debugging)
+
+def save_page_source(driver):
+
+    with open("page_source.html", "w", encoding="utf-8") as file:
+        file.write(driver.page_source)
+
+    print("Page source saved to page_source.html")

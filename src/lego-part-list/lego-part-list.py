@@ -29,12 +29,13 @@ def get_part_list_page(driver, first_matching_row):
     # Go to the first row of the Sets table and find the Set Info button
     set_info_button = first_matching_row.find_element(By.CSS_SELECTOR, "td .table_button_show_set")
 
-    # Click the Set Info button and wait for the parts list to load
+    # Click the Set Info button
     set_info_button.click()
-    time.sleep(2)
-    
+
     # Locate the "Showing 1 to 25 of n entries" text
-    info_element = driver.find_element(By.CSS_SELECTOR, '.dataTables_info')
+    info_element = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, '.dataTables_info'))
+    )
     info_text = info_element.text
     
     # Extract the total number of entries using regex
@@ -57,7 +58,9 @@ def get_part_list_page(driver, first_matching_row):
         )
 
         # Wait until the Show Entries dropdown is clickable, and click it
-        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#set_parts_list_length select")))
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "#set_parts_list_length select"))
+        )
         entries_dropdown.click()
         
         # Select "100" from the dropdown
