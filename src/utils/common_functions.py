@@ -24,7 +24,7 @@ def normalize_set_number(set_number):
     
 # Function to load Instabrick credentials from .env file
 
-def load_environment():
+def load_instabrick_environment():
     
     dotenv_path = os.path.join(os.path.dirname(__file__), "../../data/user_data/.env")
 
@@ -45,6 +45,30 @@ def load_environment():
         sys.exit(1)
 
     return USERNAME, PASSWORD
+
+# Function to load Rebrickable credentials from .env file
+
+def load_rebrickable_environment():
+    dotenv_path = os.path.join(os.path.dirname(__file__), "../../data/user_data/.env")
+
+    if not os.path.exists(dotenv_path):
+        print(f"Error: The .env file was not found at {dotenv_path}.")
+        print("Please create the .env file with your credentials in the specified directory.")
+        sys.exit(1)  # Exit the script with an error code
+
+    load_dotenv(dotenv_path)
+
+    # Retrieve credentials from .env file
+    API_KEY = os.getenv("REBRICKABLE_API_KEY")
+    USER_TOKEN = os.getenv("REBRICKABLE_USER_TOKEN")
+    REBRICKABLE_USERNAME = os.getenv("REBRICKABLE_USERNAME")
+    REBRICKABLE_PASSWORD = os.getenv("REBRICKABLE_PASSWORD")
+
+    if not API_KEY or not USER_TOKEN or not REBRICKABLE_USERNAME or not REBRICKABLE_PASSWORD:
+        print("Error: Missing REBRICKABLE_API_KEY, REBRICKABLE_USER_TOKEN, REBRICKABLE_USERNAME or REBRICKABLE_PASSWORD in the .env file.")
+        sys.exit(1)
+
+    return API_KEY, USER_TOKEN, REBRICKABLE_USERNAME, REBRICKABLE_PASSWORD
 
 # Function to initialize WebDriver (headless Chrome)
 

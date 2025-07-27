@@ -10,13 +10,13 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 # Import common functions from utils
 from utils.common_functions import init_webdriver
-from utils.common_functions import load_environment
+from utils.common_functions import load_instabrick_environment
 from utils.common_functions import login_instabrick
 from utils.common_functions import navigate_to_inventory_page
 from utils.common_functions import navigate_to_sets_page
 from utils.common_functions import normalize_set_number
 from utils.common_functions import search_for_set
-from utils.common_functions import save_page_source
+
 
 # Function to get the set name and number of parts from the row
 
@@ -211,7 +211,7 @@ def main(set_number):
     normalized_set_number = normalize_set_number(set_number)
         
     # Get Instabrick credentials and initialize the WebDriver
-    username, password = load_environment()
+    username, password = load_instabrick_environment()
     driver = init_webdriver()
 
     # Log into Instabrick and add the set to inventory
