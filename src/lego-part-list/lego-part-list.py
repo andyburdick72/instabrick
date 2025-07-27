@@ -2,7 +2,6 @@ import csv
 import os 
 import re
 import sys
-import time
 from bs4 import BeautifulSoup
 from pathlib import Path
 from selenium.common.exceptions import NoSuchElementException
@@ -16,7 +15,7 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 # Import common functions from utils
 from utils.common_functions import init_webdriver
-from utils.common_functions import load_environment
+from utils.common_functions import load_instabrick_environment
 from utils.common_functions import login_instabrick
 from utils.common_functions import navigate_to_sets_page
 from utils.common_functions import normalize_set_number
@@ -173,7 +172,7 @@ def main(set_number):
     normalized_set_number = normalize_set_number(set_number)
         
     # Get Instabrick credentials and initialize the WebDriver
-    username, password = load_environment()
+    username, password = load_instabrick_environment()
     driver = init_webdriver()
 
     # Log into Instabrick and get the part list for the specified set
